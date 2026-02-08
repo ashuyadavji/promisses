@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Promise Day 💙</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+    background: 
+      linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+      url("image.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+/* 🔝 Top actions */
+.actions {
+    position: absolute;
+    top: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 12px;
+    z-index: 3;
+}
+
+.actions button {
+    background: rgba(255,255,255,0.25);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    transition: 0.3s;
+}
+
+.actions button:hover {
+    background: rgba(255,255,255,0.45);
+    transform: scale(1.05);
+}
+
+/* 💌 Main card */
+.card {
+    background: rgba(0,0,0,0.45);
+    padding: 30px;
+    border-radius: 22px;
+    width: 360px;
+    text-align: center;
+    z-index: 2;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+#promise {
+    margin: 18px 0;
+    font-size: 18px;
+    min-height: 70px;
+}
+
+.main-btn {
+    background: #ff5c8d;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+}
+
+/* 💖 Falling hearts */
+.heart {
+    position: absolute;
+    top: -10px;
+    animation: fall linear forwards;
+    opacity: 0.9;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔝 ACTION BUTTONS -->
+<div class="actions">
+    <button onclick="changeHeart()">💖 Change Hearts</button>
+    <button onclick="toggleMusic()">🎵 Music</button>
+    <button onclick="finalPromise()">💌 Final Promise</button>
+    <button onclick="justForYou()">✨ Just For You</button>
+</div>
+
+<!-- 💙 CARD -->
+<div class="card">
+    <h2>💙 Happy Promise Day 💙</h2>
+    <p>For <b>kittu</b> 🌸</p>
+
+    <div id="promise">👇</div>
+
+    <button class="main-btn" onclick="showPromise()">Click for Promise</button>
+</div>
+
+<!-- 🎶 SONG -->
+<audio id="music" loop>
+    <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const promises = [
+    "I promise to make you smile even on your worst days 😊",
+    "I promise to always support your dreams 💫",
+    "I promise to annoy you forever but love you even more 😄",
+    "I promise to be there — today, tomorrow, always ❤️"
+];
+
+let index = 0;
+let heartEmoji = "💖";
+let musicPlaying = false;
+
+function showPromise() {
+    document.getElementById("promise").innerText = promises[index];
+    index = (index + 1) % promises.length;
+}
+
+function finalPromise() {
+    document.getElementById("promise").innerText =
+        "kittu ❤️ I promise to choose you, every single day — forever 💍";
+}
+
+function justForYou() {
+    document.getElementById("promise").innerText =
+        "Hey kittu 🌸 you are my favorite notification and my safest place 💙";
+}
+
+function changeHeart() {
+    const hearts = ["💖","❤️","💕","💘","💓"];
+    heartEmoji = hearts[Math.floor(Math.random()*hearts.length)];
+}
+
+function toggleMusic() {
+    const music = document.getElementById("music");
+    if (!musicPlaying) {
+        music.play();
+        musicPlaying = true;
+    } else {
+        music.pause();
+        musicPlaying = false;
+    }
+}
+
+/* 💕 Hearts generator */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = heartEmoji;
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (18 + Math.random()*18) + "px";
+    heart.style.animationDuration = (3 + Math.random()*3) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}
+
+setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>
